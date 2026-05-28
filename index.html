@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FotoPro – Entrega do Serviço</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #c9922a;
+      --gold-light: #e8b84b;
+      --gold-pale: #f5d98a;
+      --dark: #0a0805;
+      --dark-mid: #120e07;
+      --dark-warm: #1c1508;
+      --text: #e8dfc8;
+      --text-muted: #a89878;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--dark);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 20% 80%, rgba(180,120,20,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 10%, rgba(140,90,10,0.12) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 32px 100px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 64px;
+      animation: fadeDown 0.9s ease both;
+    }
+
+    .logo-wrap {
+      display: inline-block;
+      padding: 28px 44px;
+    }
+
+    .logo-wrap svg {
+      height: 80px;
+      width: auto;
+      display: block;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 48px 0;
+      animation: fadeUp 1s ease 0.3s both;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,146,42,0.4), transparent);
+    }
+    .divider-icon { color: var(--gold); font-size: 18px; line-height: 1; }
+
+    .section { animation: fadeUp 1s ease both; }
+    .section + .section { margin-top: 48px; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.35s; }
+    .section:nth-child(4) { animation-delay: 0.5s; }
+
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h1 em { font-style: italic; color: var(--gold-light); }
+
+    p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    p strong { color: var(--text); font-weight: 600; }
+
+    .steps {
+      background: linear-gradient(135deg, rgba(25,18,5,0.9), rgba(18,12,3,0.95));
+      border: 1px solid rgba(201,146,42,0.15);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 32px 36px;
+      margin-top: 32px;
+    }
+
+    .step { display: flex; gap: 20px; align-items: flex-start; }
+    .step + .step {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(201,146,42,0.1);
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,146,42,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-top: 2px;
+    }
+
+    .step-text { font-size: 14px; line-height: 1.8; color: var(--text-muted); }
+    .step-text strong { color: var(--text); font-weight: 600; }
+
+    .cta-wrap {
+      text-align: center;
+      margin-top: 56px;
+      animation: fadeUp 1s ease 0.65s both;
+    }
+
+    .cta-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 18px 52px;
+      background: linear-gradient(135deg, #b8821e 0%, #e8b84b 50%, #b8821e 100%);
+      background-size: 200% 100%;
+      color: #0a0805;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 30px rgba(201,146,42,0.3), 0 1px 0 rgba(255,220,120,0.4) inset;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.12), transparent);
+      pointer-events: none;
+    }
+
+    .cta-btn:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(201,146,42,0.45), 0 1px 0 rgba(255,220,120,0.4) inset;
+    }
+
+    .cta-btn:active { transform: translateY(0); }
+
+    .cta-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      opacity: 0.7;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      padding-top: 32px;
+      border-top: 1px solid rgba(201,146,42,0.1);
+      animation: fadeUp 1s ease 0.8s both;
+    }
+
+    .footer p { font-size: 12px; color: var(--text-muted); opacity: 0.5; }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 540px) {
+      .page { padding: 40px 20px 80px; }
+      .logo-wrap { padding: 20px 28px; }
+      .logo-wrap svg { height: 60px; }
+      .steps { padding: 24px 22px; }
+      .cta-btn { padding: 16px 36px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Logo inline SVG -->
+    <div class="header">
+      <div class="logo-wrap">
+        <svg width="306" height="38" viewBox="0 0 153 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M88.7065 16.2007C88.5916 17.3498 87.9596 17.9722 86.8105 18.068C86.2743 18.068 85.8051 17.8956 85.4029 17.5509C85.0199 17.187 84.8284 16.7369 84.8284 16.2007V2.64144C84.8475 2.1052 85.0486 1.66471 85.4316 1.31999C85.8147 0.956109 86.2743 0.77417 86.8105 0.77417H98.876C100.561 0.831624 101.835 1.20508 102.697 1.89453C103.559 2.56483 104.181 3.33089 104.564 4.19271C104.947 5.05452 105.139 5.92592 105.139 6.80688C105.139 7.72616 104.947 8.6167 104.564 9.47852C104.2 10.3403 103.578 11.116 102.697 11.8054C101.835 12.4757 100.734 12.8013 99.3931 12.7821H92.1538C91.6176 12.7821 91.1675 12.5906 90.8036 12.2076C90.4206 11.8437 90.2291 11.3937 90.2291 10.8574C90.2291 10.3212 90.411 9.87112 90.7749 9.50724C91.1579 9.12421 91.6176 8.9327 92.1538 8.9327H99.5654C99.9293 8.9327 100.226 8.81779 100.456 8.58797C100.705 8.339 100.887 8.06131 101.002 7.75488C101.117 7.42931 101.174 7.10373 101.174 6.77816C101.174 6.47173 101.117 6.16531 101.002 5.85889C100.887 5.53331 100.705 5.25562 100.456 5.0258C100.226 4.77683 99.9293 4.64277 99.5654 4.62362H89.4535C88.9555 4.64277 88.7065 4.89174 88.7065 5.37052V16.2007Z" fill="url(#paint0_linear_36_18)"/>
+          <path d="M112.062 16.2581C111.947 17.4072 111.315 18.0296 110.166 18.1254C109.63 18.1254 109.16 17.953 108.758 17.6083C108.375 17.2444 108.184 16.7944 108.184 16.2581V2.64144C108.203 2.1052 108.404 1.66471 108.787 1.31999C109.17 0.956109 109.63 0.77417 110.166 0.77417H122.202C122.317 0.77417 122.432 0.783746 122.547 0.802897H122.72C124.06 0.8412 125.161 1.14762 126.023 1.72217C126.885 2.29671 127.507 2.95744 127.89 3.70435C128.273 4.4321 128.465 5.16943 128.465 5.91634C128.465 6.6824 128.273 7.43888 127.89 8.18579C127.527 8.91355 126.904 9.5647 126.023 10.1392C125.161 10.7138 124.06 11.0202 122.72 11.0585H117.664C117.817 12.0161 118.133 12.7247 118.612 13.1843C119.071 13.644 119.655 13.8738 120.364 13.8738H126.569C127.105 13.8929 127.546 14.094 127.89 14.477C128.254 14.8601 128.436 15.3197 128.436 15.856C128.417 16.373 128.226 16.8135 127.862 17.1774C127.517 17.5221 127.086 17.7041 126.569 17.7232H119.847C118.43 17.7424 117.146 17.187 115.997 16.057C114.848 14.9271 114.149 13.5865 113.9 12.0352C113.556 10.3116 113.383 9.34445 113.383 9.13379C113.383 8.59755 113.565 8.14749 113.929 7.78361C114.312 7.40058 114.772 7.20907 115.308 7.20907H122.892C123.256 7.18991 123.553 7.11331 123.782 6.97925C124.031 6.82604 124.213 6.66325 124.328 6.49089C124.443 6.29937 124.501 6.10786 124.501 5.91634C124.501 5.72483 124.443 5.54289 124.328 5.37052C124.213 5.17901 124.031 5.01622 123.782 4.88216C123.553 4.72895 123.256 4.64277 122.892 4.62362H112.809C112.311 4.64277 112.062 4.89174 112.062 5.37052V16.2581Z" fill="url(#paint1_linear_36_18)"/>
+          <path d="M146.994 0.77417C147.971 0.793321 148.842 1.09974 149.608 1.69344C150.374 2.28714 150.987 2.99574 151.447 3.81925C151.926 4.64277 152.28 5.51416 152.51 6.43343C152.74 7.3527 152.854 8.29112 152.854 9.2487C152.854 10.5127 152.653 11.7575 152.251 12.9832C151.868 14.1898 151.227 15.2623 150.326 16.2007C149.445 17.1391 148.335 17.6466 146.994 17.7232H136.968C135.628 17.6658 134.507 17.1678 133.607 16.2294C132.707 15.291 132.065 14.2089 131.682 12.9832C131.319 11.7575 131.137 10.5127 131.137 9.2487C131.137 7.9847 131.328 6.74943 131.711 5.54289C132.094 4.31719 132.726 3.23513 133.607 2.29671C134.507 1.33914 135.628 0.831624 136.968 0.77417H146.994ZM146.017 13.8738C146.745 13.8355 147.348 13.5674 147.827 13.0694C148.325 12.5523 148.679 11.9586 148.89 11.2883C149.101 10.618 149.206 9.93815 149.206 9.2487C149.206 8.55924 149.091 7.88894 148.861 7.23779C148.651 6.56749 148.306 5.9738 147.827 5.45671C147.348 4.93962 146.745 4.66192 146.017 4.62362H137.859C137.131 4.66192 136.528 4.93962 136.049 5.45671C135.57 5.9738 135.216 6.56749 134.986 7.23779C134.775 7.88894 134.67 8.55924 134.67 9.2487C134.67 9.93815 134.775 10.618 134.986 11.2883C135.197 11.9586 135.541 12.5523 136.02 13.0694C136.518 13.5674 137.131 13.8355 137.859 13.8738H146.017Z" fill="url(#paint2_linear_36_18)"/>
+          <path d="M1.82248 17.9352C1.32544 17.9156 0.902037 17.7296 0.552267 17.3771C0.202498 17.0051 0.0184089 16.5547 0 16.026V8.95683C0.0184089 7.6498 0.202498 6.4164 0.552267 5.25664C0.920446 4.09688 1.51874 3.1212 2.34714 2.32962C3.19395 1.51963 4.26166 1.07781 5.55029 1.00418H16.209C16.7061 1.02259 17.1203 1.20668 17.4516 1.55645C17.8014 1.88781 17.9855 2.30201 18.0039 2.79905C18.0039 3.3145 17.829 3.75631 17.4793 4.12449C17.1479 4.49267 16.7245 4.68596 16.209 4.70437H6.48914C5.7896 4.74119 5.20972 5.00812 4.7495 5.50516C4.28928 6.0022 3.99473 6.57288 3.86587 7.21719C3.75542 7.84309 3.7094 8.53343 3.7278 9.28819V16.026C3.7094 16.5743 3.5161 17.0344 3.14792 17.4065C2.77975 17.7589 2.33793 17.9352 1.82248 17.9352ZM5.02563 10.3651C5.02563 9.84966 5.20972 9.41705 5.5779 9.06728C5.92767 8.69911 6.36028 8.51502 6.87573 8.51502H16.209C16.7245 8.51502 17.1571 8.69911 17.5069 9.06728C17.8751 9.41705 18.0591 9.84966 18.0591 10.3651C18.0591 10.8806 17.8843 11.3224 17.5345 11.6906C17.1663 12.0403 16.7245 12.2152 16.209 12.2152H6.87573C6.36028 12.2152 5.91847 12.0403 5.55029 11.6906C5.20052 11.3224 5.02563 10.8806 5.02563 10.3651Z" fill="url(#paint3_linear_36_18)"/>
+          <path d="M40.2703 2.79553C40.2703 2.28008 40.4452 1.84747 40.795 1.4977C41.1632 1.12952 41.605 0.945435 42.1204 0.945435H58.1914C58.7069 0.945435 59.1487 1.12032 59.5168 1.47009C59.8666 1.83827 60.0415 2.28008 60.0415 2.79553C60.0415 3.31098 59.8574 3.75279 59.4892 4.12097C59.1395 4.47074 58.7069 4.64563 58.1914 4.64563H52.0336V16.026C51.9232 17.2009 51.3157 17.8373 50.2111 17.9352C49.6957 17.9352 49.2447 17.7589 48.8581 17.4065C48.4899 17.0344 48.3058 16.5743 48.3058 16.026V4.64563H42.1204C41.605 4.64563 41.1724 4.46154 40.8226 4.09336C40.4544 3.74359 40.2703 3.31098 40.2703 2.79553Z" fill="url(#paint4_linear_36_18)"/>
+          <path d="M28.9471 5.73554L32.096 0.337385C33.4606 0.697262 34.6716 1.35704 35.729 2.31671C36.7864 3.27638 37.5548 4.41599 38.034 5.73554H28.9471ZM26.4505 7.98477L23.369 2.58662C24.1787 1.79189 25.1198 1.1621 26.1922 0.697262C27.2647 0.232421 28.4229 0 29.6669 0C29.8618 0 30.0867 0.0113962 30.3416 0.0341884C30.5965 0.0569806 30.829 0.0830716 31.0389 0.112462L26.4505 7.98477ZM20.9623 11.2462C20.8724 10.8863 20.801 10.5189 20.7482 10.144C20.6954 9.76916 20.6693 9.38679 20.6699 8.99693C20.6699 7.93229 20.8424 6.92763 21.1873 5.98296C21.5321 5.03828 22.0195 4.17607 22.6493 3.39634L27.1927 11.2462H20.9623ZM27.2602 17.6565C25.8956 17.2966 24.6811 16.6368 23.6164 15.6771C22.5518 14.7175 21.7796 13.5779 21.2997 12.2583H30.3641L27.2602 17.6565ZM29.6669 17.9939C29.4419 17.9939 29.2131 17.9789 28.9804 17.9489C28.7477 17.9189 28.5266 17.8889 28.3173 17.8589L32.8833 10.0091L35.9647 15.4072C35.155 16.202 34.2142 16.8318 33.1424 17.2966C32.0705 17.7614 30.912 17.9939 29.6669 17.9939ZM36.6845 14.5975L32.141 6.7477H38.3714C38.4614 7.10757 38.5327 7.47495 38.5855 7.84982C38.6383 8.22469 38.6644 8.60706 38.6638 8.99693C38.6638 10.0466 38.4803 11.0512 38.1132 12.0109C37.7461 12.9706 37.2699 13.8328 36.6845 14.5975Z" fill="url(#paint5_linear_36_18)"/>
+          <path d="M70.7186 5.73554L73.8675 0.337385C75.232 0.697262 76.443 1.35704 77.5005 2.31671C78.5579 3.27638 79.3263 4.41599 79.8055 5.73554H70.7186ZM68.2219 7.98477L65.1405 2.58662C65.9502 1.79189 66.8913 1.1621 67.9637 0.697262C69.0362 0.232421 70.1944 0 71.4383 0C71.6333 0 71.8582 0.0113962 72.1131 0.0341884C72.368 0.0569806 72.6004 0.0830716 72.8104 0.112462L68.2219 7.98477ZM62.7338 11.2462C62.6438 10.8863 62.5725 10.5189 62.5197 10.144C62.4669 9.76916 62.4408 9.38679 62.4414 8.99693C62.4414 7.93229 62.6139 6.92763 62.9587 5.98296C63.3036 5.03828 63.791 4.17607 64.4207 3.39634L68.9642 11.2462H62.7338ZM69.0317 17.6565C67.6671 17.2966 66.4525 16.6368 65.3879 15.6771C64.3233 14.7175 63.551 13.5779 63.0712 12.2583H72.1356L69.0317 17.6565ZM71.4383 17.9939C71.2134 17.9939 70.9846 17.9789 70.7519 17.9489C70.5192 17.9189 70.2981 17.8889 70.0888 17.8589L74.6547 10.0091L77.7362 15.4072C76.9265 16.202 75.9857 16.8318 74.9139 17.2966C73.842 17.7614 72.6835 17.9939 71.4383 17.9939ZM78.4559 14.5975L73.9125 6.7477H80.1429C80.2328 7.10757 80.3042 7.47495 80.357 7.84982C80.4098 8.22469 80.4359 8.60706 80.4353 8.99693C80.4353 10.0466 80.2517 11.0512 79.8847 12.0109C79.5176 12.9706 79.0413 13.8328 78.4559 14.5975Z" fill="url(#paint6_linear_36_18)"/>
+          <defs>
+          <linearGradient id="paint0_linear_36_18" x1="152.854" y1="9.48639" x2="84.8284" y2="9.48641" gradientUnits="userSpaceOnUse"><stop stop-color="#D59312"/><stop offset="1" stop-color="#F8DF72"/></linearGradient>
+          <linearGradient id="paint1_linear_36_18" x1="152.854" y1="9.48639" x2="84.8284" y2="9.48641" gradientUnits="userSpaceOnUse"><stop stop-color="#D59312"/><stop offset="1" stop-color="#F8DF72"/></linearGradient>
+          <linearGradient id="paint2_linear_36_18" x1="152.854" y1="9.48639" x2="84.8284" y2="9.48641" gradientUnits="userSpaceOnUse"><stop stop-color="#D59312"/><stop offset="1" stop-color="#F8DF72"/></linearGradient>
+          <linearGradient id="paint3_linear_36_18" x1="60.0415" y1="9.47615" x2="1.75837e-06" y2="9.47616" gradientUnits="userSpaceOnUse"><stop stop-color="#D59312"/><stop offset="1" stop-color="#F8DF72"/></linearGradient>
+          <linearGradient id="paint4_linear_36_18" x1="60.0415" y1="9.47615" x2="1.75837e-06" y2="9.47616" gradientUnits="userSpaceOnUse"><stop stop-color="#D59312"/><stop offset="1" stop-color="#F8DF72"/></linearGradient>
+          <linearGradient id="paint5_linear_36_18" x1="38.6638" y1="9.03489" x2="20.6699" y2="9.03489" gradientUnits="userSpaceOnUse"><stop stop-color="#D59312"/><stop offset="1" stop-color="#F8DF72"/></linearGradient>
+          <linearGradient id="paint6_linear_36_18" x1="80.4353" y1="9.03489" x2="62.4414" y2="9.03489" gradientUnits="userSpaceOnUse"><stop stop-color="#D59312"/><stop offset="1" stop-color="#F8DF72"/></linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Boas-vindas -->
+    <div class="section">
+      <div class="section-label">Bem-vindo ao serviço</div>
+      <h1>Sua transformação<br/><em>começa agora.</em></h1>
+      <p>
+        Obrigado por adquirir o serviço de <strong>edição profissional de fotos FotoPro</strong>.
+        Sua compra foi confirmada e estamos prontos para entregar um resultado de alto nível —
+        imagens que comunicam, encantam e se destacam.
+      </p>
+    </div>
+
+    <div class="divider"><span class="divider-icon">◈</span></div>
+
+    <!-- Como funciona -->
+    <div class="section">
+      <div class="section-label">Como funciona</div>
+      <p>
+        O processo é simples e direto. Você nos envia suas fotos, nós cuidamos de todo o trabalho
+        de edição com precisão e cuidado, e devolvemos as imagens prontas no prazo combinado.
+        Confira os passos abaixo:
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <strong>Clique no botão de envio</strong> ao final desta página para abrir o e-mail
+            de entrega diretamente no seu aplicativo de e-mail.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <strong>Anexe as fotos</strong> que deseja editar. Quanto maior a qualidade original,
+            melhor será o resultado final. Formatos aceitos: JPG, PNG, RAW, HEIC.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <strong>Aguarde o retorno.</strong> Você receberá as fotos editadas diretamente
+            no seu e-mail no prazo combinado.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"><span class="divider-icon">◈</span></div>
+
+    <!-- CTA -->
+    <div class="cta-wrap">
+      <p class="cta-label">Pronto? É só clicar abaixo</p>
+      <a
+        class="cta-btn"
+        href="https://mail.google.com/mail/?view=cm&fs=1&to=gabryel.dsn@gmail.com&su=Fotos%20para%20edição%20–%20FotoPro&body=Olá!%20Acabei%20de%20adquirir%20o%20serviço%20FotoPro%20e%20estou%20enviando%20minhas%20fotos%20para%20edição."
+        target="_blank"
+      >
+        ✦ &nbsp;Enviar Minhas Fotos
+      </a>
+      <p class="cta-note">
+        Ao clicar, o Gmail abrirá com o destinatário e o assunto já preenchidos.<br/>
+        Basta anexar suas fotos e enviar.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>© 2026 FotoPro · Edição profissional de fotografias · Todos os direitos reservados</p>
+    </div>
+
+  </div>
+</body>
+</html>
